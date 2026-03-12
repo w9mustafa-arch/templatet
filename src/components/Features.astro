@@ -50,7 +50,41 @@ const features = [
         Our comprehensive platform provides all the tools you need to manage, grow, and scale your business efficiently.
       </p>
     </div>
-    
+
+
+
+<div class="container-custom">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <!-- Feature Card 1: 3D Transform -->
+          <div class="feature-card group perspective">
+            <div class="relative h-full transform-gpu transition-all duration-700 preserve-3d hover:rotate-y-180 cursor-pointer touch-action-card">
+              <div class="absolute inset-0 backface-hidden">
+                <div class="card p-6 md:p-8 h-full flex flex-col items-center justify-center text-center">
+                  <div class="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4 md:mb-6">
+                    <svg class="w-7 h-7 md:w-8 md:h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">3D Transformations</h3>
+                  <p class="text-gray-600 dark:text-gray-300">Experience stunning 3D effects with our advanced CSS transformations.</p>
+                </div>
+              </div>
+              <div class="absolute inset-0 backface-hidden rotate-y-180">
+                <div class="card p-6 md:p-8 h-full bg-primary-600 dark:bg-primary-800 text-white flex flex-col items-center justify-center text-center">
+                  <h3 class="text-xl font-semibold mb-4">How It Works</h3>
+                  <p class="mb-4">Our 3D transformations use CSS perspective and transform properties to create immersive experiences.</p>
+                  <ul class="text-left space-y-2 mb-4">
+                    <li>• CSS perspective property</li>
+                    <li>• Transform-style: preserve-3d</li>
+                    <li>• Backface visibility control</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature, index) => (
         <div 
