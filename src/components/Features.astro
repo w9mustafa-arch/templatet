@@ -162,9 +162,11 @@ opacity:0;
 
 <script>
 
+document.addEventListener("DOMContentLoaded",()=>{
+
 document.querySelectorAll(".particles").forEach(container=>{
 
-for(let i=0;i<20;i++){
+for(let i=0;i<25;i++){
 
 const p=document.createElement("div")
 
@@ -179,6 +181,8 @@ p.style.animationDelay=Math.random()*2+"s"
 container.appendChild(p)
 
 }
+
+})
 
 })
 
