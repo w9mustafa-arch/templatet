@@ -32,8 +32,8 @@
   --color-accent-200: #f3f7b0;
   --color-accent-300: #eef484;
   --color-accent-400: #e6ee54;
-  --color-accent-500: #d9e11a;
-  --color-accent-600: #bbc40f;
+  --color-accent-500: #1A73E9;
+  --color-accent-600: #1559B7;
   --color-accent-700: #99a10d;
   --color-accent-800: #7c8012;
   --color-accent-900: #676a14;
@@ -111,7 +111,7 @@
 }
 
 @utility btn-primary {
-  @apply btn bg-accent-400 hover:bg-accent-500 text-black shadow-md hover:shadow-lg;
+  @apply btn bg-accent-400 hover:bg-accent-500 text-white shadow-md hover:shadow-lg;
 }
 
 @utility btn-secondary {
