@@ -123,7 +123,9 @@
 }
 
 @utility btn-outline {
-  @apply btn border-2 border-[#25D366] bg-transparent dark:border-[#25D366] dark:bg-transparent hover:bg-[#25D366] dark:hover:bg-[#25D366] text-[#25D366] hover:text-white dark:text-[#25D366] dark:hover:text-white transition-all duration-300;
+  @apply btn border-2 border-[#25D366] bg-[#25D366] text-white transition-all duration-300;
+  @apply hover:bg-[#25D366]/80 hover:border-[#25D366]/80 hover:text-white;
+  @apply dark:bg-[#25D366] dark:border-[#25D366] dark:text-white dark:hover:bg-[#25D366]/70;
 }
 
 
