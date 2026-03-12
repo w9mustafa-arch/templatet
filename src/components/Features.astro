@@ -39,30 +39,26 @@ const features = [
 ];
 ---
 
-<section id="features" class="section bg-gray-50 dark:bg-gray-800/50 py-16">
-  <div class="container-custom">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="inline-block px-4 py-1 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300 font-medium text-sm mb-4">
-        Nos Services
-      </span>
-      <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Tout ce dont vous avez besoin</h2>
+<section id="features" class="py-16 bg-gray-50 dark:bg-gray-800/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Nos Services</h2>
     </div>
-    
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature) => (
-        <div class="feature-card-wrapper group">
-          <div class="particles-container relative card p-8 h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-2xl">
-            <div class="particles absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class={`w-14 h-14 rounded-xl bg-${feature.color}-100 dark:bg-${feature.color}-900/30 flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110`}>
-                <svg class={`w-7 h-7 text-${feature.color}-600 dark:text-${feature.color}-400`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon}></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">{feature.title}</h3>
-              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">{feature.description}</p>
+        <div class="feature-card group relative bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          
+          <div class="particles-overlay absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <div class="relative z-10">
+            <div class={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 bg-${feature.color}-100 dark:bg-${feature.color}-900/30 text-${feature.color}-600 dark:text-${feature.color}-400`}>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon}></path>
+              </svg>
             </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">{feature.description}</p>
           </div>
         </div>
       ))}
@@ -71,70 +67,64 @@ const features = [
 </section>
 
 <style>
-  .particles-container {
-    transition: transform 0.3s ease;
-  }
-  
-  .particles-container:hover {
-    transform: translateY(-5px);
+  /* ضمان عدم تأثر التصميم العام */
+  .feature-card {
+    min-height: 250px;
   }
 
-  /* تأثير الأنيميشن للجزيئات */
-  @keyframes float-particle {
-    0% {
-      transform: translateY(0) translateX(0);
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.6;
-    }
-    100% {
-      transform: translateY(-40px) translateX(20px);
-      opacity: 0;
-    }
+  /* تأثير الجزيئات المتحركة */
+  @keyframes particle-float {
+    0% { transform: translate(0, 0); opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { transform: translate(var(--tw-translate-x), var(--tw-translate-y)); opacity: 0; }
+  }
+
+  .particle {
+    position: absolute;
+    background-color: #FE9900; /* لون البراند الخاص بك */
+    border-radius: 50%;
+    pointer-events: none;
   }
 </style>
 
 <script>
-  function initFeatureParticles() {
-    const containers = document.querySelectorAll('.particles-container');
+  function createParticles() {
+    const cards = document.querySelectorAll('.feature-card');
     
-    containers.forEach(container => {
-      const particlesElement = container.querySelector('.particles');
-      if (!particlesElement) return;
+    cards.forEach(card => {
+      const overlay = card.querySelector('.particles-overlay');
+      if (!overlay) return;
 
-      const createParticles = () => {
-        particlesElement.innerHTML = '';
-        const count = 20; // عدد الجزيئات لكل بطاقة
-        
-        for (let i = 0; i < count; i++) {
+      // إنشاء الجزيئات مرة واحدة فقط
+      if (overlay.children.length === 0) {
+        for (let i = 0; i < 15; i++) {
           const particle = document.createElement('div');
-          const size = Math.random() * 4 + 2;
-          const left = Math.random() * 100;
-          const top = Math.random() * 100;
-          const duration = Math.random() * 2 + 1.5;
-          const delay = Math.random() * 2;
+          particle.className = 'particle';
           
-          particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            background-color: #FE9900; /* لون البراند الخاص بك */
-            border-radius: 50%;
-            left: ${left}%;
-            top: ${top}%;
-            opacity: 0;
-            animation: float-particle ${duration}s ease-in-out ${delay}s infinite;
-          `;
-          particlesElement.appendChild(particle);
-        }
-      };
+          [span_4](start_span)// إعدادات عشوائية للحركة[span_4](end_span)
+          const size = Math.random() * 4 + 2;
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const tx = (Math.random() - 0.5) * 100;
+          const ty = (Math.random() - 0.5) * 100;
+          const duration = Math.random() * 3 + 2;
+          const delay = Math.random() * 2;
 
-      createParticles();
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.left = `${x}%`;
+          particle.style.top = `${y}%`;
+          particle.style.setProperty('--tw-translate-x', `${tx}px`);
+          particle.style.setProperty('--tw-translate-y', `${ty}px`);
+          particle.style.animation = `particle-float ${duration}s ease-in-out ${delay}s infinite`;
+          
+          overlay.appendChild(particle);
+        }
+      }
     });
   }
 
-  // تشغيل عند تحميل الصفحة أو التنقل في Astro
-  document.addEventListener('DOMContentLoaded', initFeatureParticles);
-  document.addEventListener('astro:page-load', initFeatureParticles);
+  [span_5](start_span)// تشغيل آمن مع Astro[span_5](end_span)
+  document.addEventListener('DOMContentLoaded', createParticles);
+  document.addEventListener('astro:page-load', createParticles);
 </script>
