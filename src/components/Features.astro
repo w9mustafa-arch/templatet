@@ -2,19 +2,19 @@
 const features = [
 {
 title:"Livraison de repas",
-description:"Recevez vos repas rapidement à Marrakech.",
+description:"Recevez vos repas rapidement à Marrakech directement chez vous.",
 image:"/repas.jpg",
 alt:"Livraison de repas à domicile à Marrakech"
 },
 {
 title:"Livraison de courses",
-description:"Nous livrons vos courses directement chez vous.",
+description:"Nous livrons vos courses rapidement partout à Marrakech.",
 image:"/courses.jpg",
 alt:"Service de livraison de courses à Marrakech"
 },
 {
 title:"Livraison de pharmacie",
-description:"Livraison rapide de médicaments à domicile.",
+description:"Livraison rapide de médicaments et produits de pharmacie.",
 image:"/pharmacie.jpg",
 alt:"Livraison de médicaments pharmacie Marrakech"
 }
@@ -25,23 +25,6 @@ alt:"Livraison de médicaments pharmacie Marrakech"
 
 <div class="container-custom">
 
-<div class="text-center max-w-3xl mx-auto mb-16">
-
-<span class="inline-block px-4 py-1 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300 font-medium text-sm mb-4">
-Powerful Features
-</span>
-
-<h2 class="mb-6 text-gray-900 dark:text-white">
-Everything You Need to Succeed
-</h2>
-
-<p class="text-gray-600 dark:text-gray-300">
-Our platform provides all the tools you need to grow your business.
-</p>
-
-</div>
-
-
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
 {features.map((feature) => (
@@ -50,7 +33,13 @@ Our platform provides all the tools you need to grow your business.
 
 <div class="card p-6 md:p-8 h-full">
 
-<h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+<div class="text-center">
+
+<span class="inline-block px-4 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900 text-secondary-600 dark:text-secondary-300 font-medium text-sm mb-4">
+Service
+</span>
+
+<h3 class="mb-4 text-gray-900 dark:text-white text-xl font-semibold">
 {feature.title}
 </h3>
 
@@ -58,13 +47,16 @@ Our platform provides all the tools you need to grow your business.
 {feature.description}
 </p>
 
+</div>
+
 <div class="relative h-32 rounded-lg overflow-hidden">
 
 <img
-  src={feature.image}
-  alt={feature.alt}
-  class="w-full h-full object-cover"
+src={feature.image}
+alt={feature.alt}
+class="w-full h-full object-cover"
 />
+
 </div>
 
 </div>
@@ -72,15 +64,6 @@ Our platform provides all the tools you need to grow your business.
 </div>
 
 ))}
-
-</div>
-
-
-<div class="mt-16 text-center">
-
-<a href="/features" class="btn-primary">
-Explore All Features
-</a>
 
 </div>
 
