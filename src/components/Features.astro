@@ -2,19 +2,19 @@
 const features = [
 {
 title:"Livraison de repas",
-description:"Recevez vos repas rapidement à Marrakech directement chez vous.",
+description:"Recevez vos repas rapidement à Marrakech.",
 image:"/repas.jpg",
 alt:"Livraison de repas à domicile à Marrakech"
 },
 {
 title:"Livraison de courses",
-description:"Nous livrons vos courses rapidement partout à Marrakech.",
+description:"Nous livrons vos courses directement chez vous.",
 image:"/courses.jpg",
 alt:"Service de livraison de courses à Marrakech"
 },
 {
 title:"Livraison de pharmacie",
-description:"Livraison rapide de médicaments et produits de pharmacie.",
+description:"Livraison rapide de médicaments à domicile.",
 image:"/pharmacie.jpg",
 alt:"Livraison de médicaments pharmacie Marrakech"
 }
@@ -25,6 +25,20 @@ alt:"Livraison de médicaments pharmacie Marrakech"
 
 <div class="container-custom">
 
+<div class="text-center max-w-3xl mx-auto mb-16">
+
+<span class="inline-block px-4 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900 text-secondary-600 dark:text-secondary-300 font-medium text-sm mb-4">
+        Customer Stories
+      </span>
+
+<h2 class="mb-6 text-gray-900 dark:text-white">What Our Clients Say</h2>
+      <p class="text-gray-600 dark:text-gray-300">
+        Don't just take our word for it. Here's what our customers have to say about their experience with our platform.
+      </p>
+
+</div>
+
+
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
 {features.map((feature) => (
@@ -33,13 +47,7 @@ alt:"Livraison de médicaments pharmacie Marrakech"
 
 <div class="card p-6 md:p-8 h-full">
 
-<div class="text-center">
-
-<span class="inline-block px-4 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900 text-secondary-600 dark:text-secondary-300 font-medium text-sm mb-4">
-Service
-</span>
-
-<h3 class="mb-4 text-gray-900 dark:text-white text-xl font-semibold">
+<h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
 {feature.title}
 </h3>
 
@@ -47,16 +55,13 @@ Service
 {feature.description}
 </p>
 
-</div>
-
 <div class="relative h-32 rounded-lg overflow-hidden">
 
 <img
-src={feature.image}
-alt={feature.alt}
-class="w-full h-full object-cover"
+  src={feature.image}
+  alt={feature.alt}
+  class="w-full h-full object-cover"
 />
-
 </div>
 
 </div>
@@ -64,6 +69,15 @@ class="w-full h-full object-cover"
 </div>
 
 ))}
+
+</div>
+
+
+<div class="mt-16 text-center">
+
+<a href="/features" class="btn-primary">
+Explore All Features
+</a>
 
 </div>
 
