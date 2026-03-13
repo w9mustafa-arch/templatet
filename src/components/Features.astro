@@ -3,16 +3,19 @@ const features = [
 {
 title:"Intuitive Dashboard",
 description:"Get a comprehensive overview of your business with our easy-to-use dashboard.",
+color:"primary",
 image:"/repas.jpg"
 },
 {
 title:"Advanced Analytics",
 description:"Make data-driven decisions with powerful analytics tools.",
+color:"secondary",
 image:"/courses.jpg"
 },
 {
 title:"Team Collaboration",
 description:"Enhance productivity with real-time collaboration.",
+color:"accent",
 image:"/pharmacie.jpg"
 }
 ];
@@ -47,35 +50,13 @@ Our platform provides all the tools you need to grow your business.
 
 <div class="card p-6 md:p-8 h-full">
 
-<div class={`w-14 h-14 rounded-xl bg-${feature.color}-100 dark:bg-${feature.color}-900/30 flex items-center justify-center mb-6`}>
-
-<svg
-class={`w-7 h-7 text-${feature.color}-600 dark:text-${feature.color}-400`}
-fill="none"
-stroke="currentColor"
-viewBox="0 0 24 24"
->
-
-<path
-stroke-linecap="round"
-stroke-linejoin="round"
-stroke-width="2"
-d={feature.icon}
-/>
-
-</svg>
-
-</div>
-
-
-<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+<h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
 {feature.title}
 </h3>
 
-<p class="text-gray-600 dark:text-gray-300 mb-3">
+<p class="text-gray-600 dark:text-gray-300 mb-6">
 {feature.description}
 </p>
-
 
 <div class="relative h-32 rounded-lg overflow-hidden">
 
