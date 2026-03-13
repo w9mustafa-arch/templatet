@@ -1,22 +1,22 @@
 ---
 const features = [
 {
-title:"Intuitive Dashboard",
-description:"Get a comprehensive overview of your business with our easy-to-use dashboard.",
-color:"primary",
-image:"/repas.jpg"
+title:"Livraison de repas",
+description:"Recevez vos repas rapidement à Marrakech.",
+image:"/repas.jpg",
+alt:"Livraison de repas à domicile à Marrakech"
 },
 {
-title:"Advanced Analytics",
-description:"Make data-driven decisions with powerful analytics tools.",
-color:"secondary",
-image:"/courses.jpg"
+title:"Livraison de courses",
+description:"Nous livrons vos courses directement chez vous.",
+image:"/courses.jpg",
+alt:"Service de livraison de courses à Marrakech"
 },
 {
-title:"Team Collaboration",
-description:"Enhance productivity with real-time collaboration.",
-color:"accent",
-image:"/pharmacie.jpg"
+title:"Livraison de pharmacie",
+description:"Livraison rapide de médicaments à domicile.",
+image:"/pharmacie.jpg",
+alt:"Livraison de médicaments pharmacie Marrakech"
 }
 ];
 ---
@@ -61,11 +61,10 @@ Our platform provides all the tools you need to grow your business.
 <div class="relative h-32 rounded-lg overflow-hidden">
 
 <img
-src={feature.image}
-alt={feature.title}
-class="w-full h-full object-cover"
+  src={feature.image}
+  alt={feature.alt}
+  class="w-full h-full object-cover"
 />
-
 </div>
 
 </div>
