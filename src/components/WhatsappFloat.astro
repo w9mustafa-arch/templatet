@@ -1,22 +1,3 @@
----
-const phone = "212600000000";
-const message = "Bonjour, je veux une livraison 🚚";
-const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
----
-
-<a 
-  href={url}
-  target="_blank"
-  rel="noopener noreferrer"
-  id="whatsapp-float"
-  class="fixed right-8 z-[9999] flex items-center gap-3 px-4 py-3 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] shadow-lg text-white font-medium text-base opacity-0 translate-y-10 pointer-events-none transition-all duration-500 hover:scale-105"
->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-6 h-6 fill-white">
-    <path d="M16 .396C7.163.396 0 7.558 0 16.396c0 2.89.757 5.602 2.078 7.955L.086 32l7.87-1.977a15.94 15.94 0 008.044 2.197h.006c8.837 0 16-7.162 16-16S24.843.396 16 .396zm7.37 19.761c-.4-.2-2.36-1.16-2.73-1.3-.37-.14-.64-.2-.91.2-.27.4-1.04 1.3-1.27 1.57-.23.27-.46.3-.86.1-.4-.2-1.7-.63-3.24-2-.94-.84-1.58-1.87-1.76-2.2-.18-.34-.02-.52.14-.69.14-.14.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.54-.07-.16-.91-2.2-1.25-3.02-.33-.8-.67-.7-.91-.71h-.78c-.27 0-.7.1-1.06.5-.36.4-1.4 1.36-1.4 3.32s1.43 3.86 1.63 4.12c.2.27 2.8 4.27 6.78 5.98.95.41 1.7.65 2.28.83.96.3 1.84.26 2.54.16.77-.11 2.36-.96 2.7-1.88.34-.92.34-1.71.24-1.88-.1-.17-.37-.27-.77-.47z"/>
-  </svg>
-  Chat with us
-</a>
-
 <script>
 function initWhatsAppButton() {
   const button = document.getElementById('whatsapp-float');
@@ -24,12 +5,16 @@ function initWhatsAppButton() {
   const footer = document.getElementById('footer');
 
   if (!button) return;
+
+  // تأكد أن الزر داخل body
   document.body.appendChild(button);
 
+  // إظهار / إخفاء
   const showButton = () => {
     button.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
     button.classList.add('opacity-100', 'translate-y-0');
   };
+
   const hideButton = () => {
     button.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
     button.classList.remove('opacity-100', 'translate-y-0');
@@ -49,32 +34,32 @@ function initWhatsAppButton() {
     showButton();
   }
 
-  // 👀 مراقبة Footer: توقف الزر فقط عند وصوله للفوتر
+  // 👀 مراقبة Footer
   if (footer) {
-    const updateButton = () => {
-      const footerRect = footer.getBoundingClientRect();
-      const buttonHeight = button.offsetHeight;
-      const windowHeight = window.innerHeight;
-
-      // إذا ظهر الفوتر في نافذة العرض
-      if (footerRect.top < windowHeight) {
-        button.style.position = 'absolute';
-        button.style.bottom = `${footerRect.height}px`; // توقف عند الفوتر
-      } else {
-        button.style.position = 'fixed';
-        button.style.bottom = '2rem';
-      }
-    };
-
-    updateButton();
-    window.addEventListener('scroll', updateButton);
-    window.addEventListener('resize', updateButton);
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // 🧱 تثبيت الزر فوق الفوتر مباشرة
+          button.style.position = 'absolute';
+          const footerTop = footer.offsetTop;
+          button.style.top = (footerTop - button.offsetHeight - 20) + 'px';
+          button.style.bottom = 'auto';
+        } else {
+          // 🔁 رجوع للوضع الطبيعي
+          button.style.position = 'fixed';
+          button.style.bottom = '2rem';
+          button.style.top = 'auto';
+        }
+      },
+      { threshold: 0 }
+    );
+    footerObserver.observe(footer);
   }
 }
 
-// أول تحميل
+// تشغيل أول مرة
 initWhatsAppButton();
 
-// بعد أي صفحة جديدة مع Astro transitions
+// مع Astro
 document.addEventListener('astro:page-load', initWhatsAppButton);
 </script>
