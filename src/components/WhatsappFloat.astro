@@ -35,7 +35,7 @@ function initWhatsAppButton() {
     button.classList.remove('opacity-100', 'translate-y-0');
   };
 
-  // مراقبة Hero
+  // 👀 مراقبة Hero
   if (hero) {
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
@@ -49,26 +49,26 @@ function initWhatsAppButton() {
     showButton();
   }
 
-  // مراقبة Footer
+  // 👀 مراقبة Footer: توقف الزر فقط عند وصوله للفوتر
   if (footer) {
-    const updateButtonPosition = () => {
+    const updateButton = () => {
       const footerRect = footer.getBoundingClientRect();
+      const buttonHeight = button.offsetHeight;
       const windowHeight = window.innerHeight;
 
+      // إذا ظهر الفوتر في نافذة العرض
       if (footerRect.top < windowHeight) {
-        // زر يتوقف فوق الفوتر بمسافة صغيرة (10px)
-        button.style.bottom = `${windowHeight - footerRect.top + 10}px`;
+        button.style.position = 'absolute';
+        button.style.bottom = `${footerRect.height}px`; // توقف عند الفوتر
       } else {
-        button.style.bottom = '2rem'; // الموضع الطبيعي bottom-8
+        button.style.position = 'fixed';
+        button.style.bottom = '2rem';
       }
     };
 
-    // أول مرة
-    updateButtonPosition();
-
-    // أثناء scroll و resize
-    window.addEventListener('scroll', updateButtonPosition);
-    window.addEventListener('resize', updateButtonPosition);
+    updateButton();
+    window.addEventListener('scroll', updateButton);
+    window.addEventListener('resize', updateButton);
   }
 }
 
