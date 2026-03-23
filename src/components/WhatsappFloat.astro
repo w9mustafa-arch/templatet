@@ -4,10 +4,9 @@ const message = "Bonjour, je veux une livraison 🚚";
 const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 ---
 
-<!-- Bubble -->
-<div id="wa-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-3">
+<div id="wa-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-3 pointer-events-none">
 
-  <!-- Message preview -->
+  <!-- Message -->
   <div id="wa-msg" class="bg-white text-gray-800 text-sm px-4 py-2 rounded-xl shadow-md opacity-0 translate-y-2 transition-all duration-300">
     💬 Bonjour 👋<br/>
     Nous sommes disponibles !
@@ -21,7 +20,6 @@ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     id="wa-btn"
     class="flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3 rounded-full shadow-lg transition-all duration-300 scale-0 opacity-0"
   >
-    <!-- Icon -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5 fill-white">
       <path d="M16 .396C7.163.396 0 7.558 0 16.396c0 2.89.757 5.602 2.078 7.955L.086 32l7.87-1.977a15.94 15.94 0 008.044 2.197h.006c8.837 0 16-7.162 16-16S24.843.396 16 .396z"/>
     </svg>
@@ -35,26 +33,54 @@ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   function initWhatsAppReal() {
     const btn = document.getElementById('wa-btn');
     const msg = document.getElementById('wa-msg');
+    const container = document.getElementById('wa-container');
+    const hero = document.getElementById('hero');
 
-    if (!btn) return;
+    if (!btn || !container) return;
 
-    document.body.appendChild(document.getElementById('wa-container'));
+    document.body.appendChild(container);
 
-    // إظهار الزر
-    setTimeout(() => {
+    function show() {
+      container.classList.remove('pointer-events-none');
       btn.classList.remove('scale-0', 'opacity-0');
       btn.classList.add('scale-100', 'opacity-100');
-    }, 500);
 
-    // إظهار الرسالة الصغيرة
-    setTimeout(() => {
-      msg.classList.remove('opacity-0', 'translate-y-2');
-    }, 1200);
+      // message bubble
+      setTimeout(() => {
+        msg.classList.remove('opacity-0', 'translate-y-2');
+      }, 400);
 
-    // إخفاء الرسالة بعد شوية
-    setTimeout(() => {
+      setTimeout(() => {
+        msg.classList.add('opacity-0', 'translate-y-2');
+      }, 4000);
+    }
+
+    function hide() {
+      container.classList.add('pointer-events-none');
+      btn.classList.add('scale-0', 'opacity-0');
+      btn.classList.remove('scale-100', 'opacity-100');
       msg.classList.add('opacity-0', 'translate-y-2');
-    }, 5000);
+    }
+
+    if (!hero) {
+      show();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // داخل hero → خبي
+          hide();
+        } else {
+          // خرج من hero → بين
+          show();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(hero);
   }
 
   initWhatsAppReal();
