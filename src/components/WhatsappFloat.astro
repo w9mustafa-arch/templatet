@@ -1,84 +1,46 @@
 ---
+
 ---
 
 <a href="https://wa.me/212612345678"
    target="_blank"
-   id="whatsappBtn"
-   class="whatsapp-float opacity-0 pointer-events-none">
+   class="whatsapp-float">
 
-  <span class="icon">
-    <svg viewBox="0 0 32 32" width="24" height="24" fill="white">
-      <path d="M16 .4C7.2.4 0 7.6 0 16c0 2.8.7 5.4 2 7.7L0 32l8.6-2.2c2.2 1.2 4.7 1.8 7.4 1.8 8.8 0 16-7.2 16-16S24.8.4 16 .4z"/>
-    </svg>
-  </span>
+  <svg viewBox="0 0 32 32" width="24" height="24" fill="white">
+    <path d="M16 .4C7.2.4 0 7.6 0 16c0 2.8.7 5.4 2 7.7L0 32l8.6-2.2c2.2 1.2 4.7 1.8 7.4 1.8 8.8 0 16-7.2 16-16S24.8.4 16 .4z"/>
+  </svg>
 
-  <span class="label">Chat on WhatsApp</span>
 </a>
-
-<script>
-  function initWhatsapp() {
-    const btn = document.getElementById("whatsappBtn");
-    const hero = document.getElementById("hero");
-
-    if (!btn || !hero) return;
-
-    const toggleBtn = () => {
-      const heroBottom = hero.offsetTop + hero.offsetHeight;
-
-      if (window.scrollY > heroBottom - 100) {
-        btn.classList.remove("opacity-0", "pointer-events-none");
-      } else {
-        btn.classList.add("opacity-0", "pointer-events-none");
-      }
-    };
-
-    window.addEventListener("scroll", toggleBtn);
-
-    // تشغيل مباشر بدون انتظار scroll
-    toggleBtn();
-  }
-
-  document.addEventListener("DOMContentLoaded", initWhatsapp);
-  window.addEventListener("pageshow", initWhatsapp);
-</script>
 
 <style>
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  width: 55px;
+  height: 55px;
   background: #25D366;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 50px;
-  font-weight: 600;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
-  z-index: 999;
-}
-
-/* Hover 🔥 */
-.whatsapp-float:hover {
-  transform: scale(1.07);
-  box-shadow: 0 12px 35px rgba(0,0,0,0.35);
-}
-
-/* أيقونة */
-.whatsapp-float .icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.whatsapp-float:hover {
+  transform: scale(1.1);
 }
 
 /* Pulse Animation 🔥 */
 .whatsapp-float::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   background: #25D366;
   opacity: 0.4;
   animation: pulse 2s infinite;
@@ -91,23 +53,11 @@
     opacity: 0.4;
   }
   70% {
-    transform: scale(1.4);
+    transform: scale(1.5);
     opacity: 0;
   }
   100% {
     opacity: 0;
-  }
-}
-
-/* موبايل 📱 */
-@media (max-width: 640px) {
-  .whatsapp-float {
-    padding: 12px;
-    border-radius: 50%;
-  }
-
-  .whatsapp-float .label {
-    display: none;
   }
 }
 </style>
