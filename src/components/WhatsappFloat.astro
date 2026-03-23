@@ -1,6 +1,4 @@
 ---
-import { onMount } from 'astro/client';
-
 const phone = "212600000000";
 const message = "Bonjour, je veux une livraison 🚚";
 const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
@@ -11,13 +9,37 @@ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   target="_blank"
   rel="noopener noreferrer"
   id="whatsapp-float"
-  class="fixed bottom-6 right-6 z-[9999] flex items-center justify-center w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+  class="fixed bottom-6 right-6 z-[9999] flex items-center justify-center w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg transition-all duration-500 opacity-0 translate-y-10 pointer-events-none"
 >
-  WhatsApp
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M20.52 3.48A11.94 11.94 0 0012.03 0C5.4 0 .06 5.34.06 11.97c0 2.11.55 4.17 1.6 5.99L0 24l6.2-1.63a11.94 11.94 0 005.83 1.48h.01c6.63 0 11.97-5.34 11.97-11.97 0-3.2-1.25-6.21-3.49-8.4z"/>
+  </svg>
 </a>
 
 <script>
-  // 🚀 هذا هو السر
+  const button = document.getElementById('whatsapp-float');
+  const hero = document.getElementById('hero');
+
+  if (button && hero) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          // 🔥 يظهر الزر
+          button.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+          button.classList.add('opacity-100', 'translate-y-0');
+        } else {
+          // ❌ يختفي الزر
+          button.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+          button.classList.remove('opacity-100', 'translate-y-0');
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(hero);
+  }
+
+  // 🚀 مهم: حل مشكلة Astro transitions
   const el = document.getElementById('whatsapp-float');
   if (el) {
     document.body.appendChild(el);
