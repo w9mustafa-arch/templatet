@@ -20,52 +20,63 @@ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 <script>
 function initWhatsAppButton() {
   const button = document.getElementById('whatsapp-float');
-  const footer = document.getElementById('footer');
   const hero = document.getElementById('hero');
+  const footer = document.getElementById('footer');
 
-  if (!button || !footer) return;
+  if (!button) return;
 
-  const updatePosition = () => {
-    const footerRect = footer.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const buttonHeight = button.offsetHeight;
-    
-    // المسافة الأصلية للزر من الأسفل (bottom-8 تعادل 32px)
-    const defaultBottom = 32; 
-    // المسافة التي تريد تركها بين الزر والفوتر عند التوقف (مثلاً 10 بكسل)
-    const gap = 10; 
-
-    // إذا بدأ الفوتر بالظهور وتداخل مع منطقة الزر
-    if (footerRect.top < windowHeight - defaultBottom - buttonHeight) {
-      // الحسبة التي تجعل الزر "يتوقف" تماماً فوق حافة الفوتر
-      const newBottom = windowHeight - footerRect.top + gap;
-      button.style.bottom = `${newBottom}px`;
-    } else {
-      // الوضع الطبيعي عندما يكون الفوتر بعيداً
-      button.style.bottom = `${defaultBottom}px`;
-    }
-  };
-
-  // إظهار/إخفاء الزر بناءً على الـ Hero (اختياري حسب حاجتك)
-  if (hero) {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) {
+  // 1. وظيفة التحكم في الظهور والاختفاء (مرتبط بالـ Hero)
+  const handleVisibility = () => {
+    if (hero) {
+      const heroRect = hero.getBoundingClientRect();
+      // إذا اختفى الـ Hero من الشاشة (أصبح فوق)
+      if (heroRect.bottom < 0) {
         button.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
         button.classList.add('opacity-100', 'translate-y-0');
       } else {
         button.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
         button.classList.remove('opacity-100', 'translate-y-0');
       }
-    });
-    observer.observe(hero);
-  }
+    } else {
+      // إذا لم يوجد Hero، يظهر الزر مباشرة
+      button.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+      button.classList.add('opacity-100', 'translate-y-0');
+    }
+  };
 
-  // تفعيل مراقبة التوقف عند الفوتر أثناء السكرول
-  window.addEventListener('scroll', updatePosition);
-  window.addEventListener('resize', updatePosition);
-  updatePosition(); // تشغيل لمرة واحدة عند التحميل
+  // 2. وظيفة التوقف عند الفوتر (مرتبط بالـ Scroll)
+  const handlePosition = () => {
+    if (footer) {
+      const footerRect = footer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const buttonHeight = button.offsetHeight;
+      const defaultBottom = 32; // المسافة الطبيعية (bottom-8)
+      const gap = 15; // المسافة البسيطة التي طلبتها فوق الفوتر
+
+      // إذا اصطدم الفوتر بمكان الزر
+      if (footerRect.top < windowHeight - defaultBottom) {
+        const newBottom = windowHeight - footerRect.top + gap;
+        button.style.bottom = `${newBottom}px`;
+      } else {
+        button.style.bottom = `${defaultBottom}px`;
+      }
+    }
+  };
+
+  // تشغيل الوظائف عند التمرير وتغيير حجم النافذة
+  const onScroll = () => {
+    handleVisibility();
+    handlePosition();
+  };
+
+  window.addEventListener('scroll', onScroll);
+  window.addEventListener('resize', onScroll);
+  
+  // التشغيل لأول مرة عند تحميل الصفحة
+  onScroll();
 }
 
+// دعم Astro transitions
 document.addEventListener('astro:page-load', initWhatsAppButton);
 initWhatsAppButton();
 </script>
