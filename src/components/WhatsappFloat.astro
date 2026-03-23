@@ -4,65 +4,62 @@ const message = "Bonjour, je veux une livraison 🚚";
 const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 ---
 
-<a 
-  href={url}
-  target="_blank"
-  rel="noopener noreferrer"
-  id="whatsapp-float"
-  class="fixed bottom-5 right-5 z-[9999] flex items-center gap-2 px-4 py-3 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] text-white shadow-xl transition-all duration-300 scale-0 opacity-0"
->
-  <!-- Icon -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5 fill-white">
-    <path d="M16 .396C7.163.396 0 7.558 0 16.396c0 2.89.757 5.602 2.078 7.955L.086 32l7.87-1.977a15.94 15.94 0 008.044 2.197h.006c8.837 0 16-7.162 16-16S24.843.396 16 .396z"/>
-  </svg>
+<!-- Bubble -->
+<div id="wa-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-3">
 
-  <!-- Text -->
-  <span class="text-sm font-medium hidden sm:inline">
-    WhatsApp
-  </span>
-</a>
+  <!-- Message preview -->
+  <div id="wa-msg" class="bg-white text-gray-800 text-sm px-4 py-2 rounded-xl shadow-md opacity-0 translate-y-2 transition-all duration-300">
+    💬 Bonjour 👋<br/>
+    Nous sommes disponibles !
+  </div>
+
+  <!-- Button -->
+  <a 
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    id="wa-btn"
+    class="flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3 rounded-full shadow-lg transition-all duration-300 scale-0 opacity-0"
+  >
+    <!-- Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5 fill-white">
+      <path d="M16 .396C7.163.396 0 7.558 0 16.396c0 2.89.757 5.602 2.078 7.955L.086 32l7.87-1.977a15.94 15.94 0 008.044 2.197h.006c8.837 0 16-7.162 16-16S24.843.396 16 .396z"/>
+    </svg>
+
+    <span class="text-sm font-medium">Chat WhatsApp</span>
+  </a>
+
+</div>
 
 <script>
-  function initWhatsAppButton() {
-    const button = document.getElementById('whatsapp-float');
-    const hero = document.getElementById('hero');
+  function initWhatsAppReal() {
+    const btn = document.getElementById('wa-btn');
+    const msg = document.getElementById('wa-msg');
 
-    if (!button) return;
+    if (!btn) return;
 
-    document.body.appendChild(button);
+    document.body.appendChild(document.getElementById('wa-container'));
 
-    function showBtn() {
-      button.classList.remove('scale-0', 'opacity-0');
-      button.classList.add('scale-100', 'opacity-100');
-    }
+    // إظهار الزر
+    setTimeout(() => {
+      btn.classList.remove('scale-0', 'opacity-0');
+      btn.classList.add('scale-100', 'opacity-100');
+    }, 500);
 
-    function hideBtn() {
-      button.classList.add('scale-0', 'opacity-0');
-      button.classList.remove('scale-100', 'opacity-100');
-    }
+    // إظهار الرسالة الصغيرة
+    setTimeout(() => {
+      msg.classList.remove('opacity-0', 'translate-y-2');
+    }, 1200);
 
-    if (!hero) {
-      showBtn();
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          showBtn();
-        } else {
-          hideBtn();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(hero);
+    // إخفاء الرسالة بعد شوية
+    setTimeout(() => {
+      msg.classList.add('opacity-0', 'translate-y-2');
+    }, 5000);
   }
 
-  initWhatsAppButton();
+  initWhatsAppReal();
 
   document.addEventListener('astro:page-load', () => {
-    initWhatsAppButton();
+    initWhatsAppReal();
   });
 </script>
