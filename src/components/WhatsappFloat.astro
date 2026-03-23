@@ -21,32 +21,53 @@ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 function initWhatsAppButton() {
   const button = document.getElementById('whatsapp-float');
   const hero = document.getElementById('hero');
+  const footer = document.getElementById('footer');
+
   if (!button) return;
 
   // ضع الزر دائماً في body
   document.body.appendChild(button);
 
-  if (!hero) {
-    // صفحات بدون hero
+  // Helper: إظهار أو إخفاء الزر
+  const showButton = () => {
     button.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
     button.classList.add('opacity-100', 'translate-y-0');
-    return;
+  };
+  const hideButton = () => {
+    button.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+    button.classList.remove('opacity-100', 'translate-y-0');
+  };
+
+  // 👀 مراقبة Hero
+  if (hero) {
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) showButton();
+        else hideButton();
+      },
+      { threshold: 0.2 }
+    );
+    heroObserver.observe(hero);
+  } else {
+    showButton(); // إذا الصفحة بدون Hero
   }
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting) {
-        button.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-        button.classList.add('opacity-100', 'translate-y-0');
-      } else {
-        button.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-        button.classList.remove('opacity-100', 'translate-y-0');
-      }
-    },
-    { threshold: 0.2 }
-  );
-
-  observer.observe(hero);
+  // 👀 مراقبة Footer
+  if (footer) {
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // الزر يصل إلى الفوتر -> اخفاء أو رفعه فوق الفوتر
+          button.style.bottom = `${footer.clientHeight + 20}px`; 
+        } else {
+          // الزر يعود للموضع الطبيعي
+          button.style.bottom = '2rem'; // bottom-8
+        }
+      },
+      { threshold: 0.1 }
+    );
+    footerObserver.observe(footer);
+  }
 }
 
 // أول تحميل
