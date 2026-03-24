@@ -1,7 +1,7 @@
 ---
 const phone = "212601020304";
 const message = "Hello 👋 I would like to order delivery. Can you help me?";
-const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
 ---
 
 <div id="wa-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-3 pointer-events-none">
