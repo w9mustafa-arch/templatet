@@ -39,3 +39,23 @@
 
   </div>
 </section>
+
+
+<script>
+  const searchInput = document.getElementById("zoneSearch");
+  const zones = document.querySelectorAll(".zone-chip");
+
+  searchInput.addEventListener("input", function () {
+    const value = this.value.toLowerCase();
+
+    zones.forEach(zone => {
+      const text = zone.textContent.toLowerCase();
+
+      if (text.includes(value)) {
+        zone.style.display = "inline-block";
+      } else {
+        zone.style.display = "none";
+      }
+    });
+  });
+</script>
