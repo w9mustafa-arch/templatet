@@ -3,84 +3,47 @@
 
     <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-14">
-      <span class="inline-block px-4 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-sm font-medium mb-4">
-        Delivery Zones
-      </span>
-
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        We Deliver Across Marrakech 🚚
+        Delivery Areas in Marrakech 📍
       </h2>
-
       <p class="text-gray-600 dark:text-gray-300">
-        Fast delivery to the most popular areas in Marrakech — groceries, meals, and more.
+        Click on any area to see it on the map.
       </p>
     </div>
 
-    <!-- Zones Grid -->
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-10 items-start">
 
-      <!-- Card -->
-      <div class="zone-card">
-        <span>📍</span> Gueliz
+      <!-- Zones -->
+      <div class="grid grid-cols-2 gap-4">
+
+        <button onclick="focusMap(31.6295, -8.0089)" class="zone-btn">Gueliz</button>
+        <button onclick="focusMap(31.6210, -8.0160)" class="zone-btn">Medina</button>
+        <button onclick="focusMap(31.6245, -8.0123)" class="zone-btn">Hivernage</button>
+        <button onclick="focusMap(31.6600, -7.9500)" class="zone-btn">Palmeraie</button>
+        <button onclick="focusMap(31.6000, -8.0500)" class="zone-btn">Targa</button>
+        <button onclick="focusMap(31.5900, -8.0700)" class="zone-btn">Massira</button>
+
       </div>
 
-      <div class="zone-card">
-        <span>📍</span> Hivernage
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Medina
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Sidi Ghanem
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Palmeraie
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Targa
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Massira
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Daoudiate
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Amerchich
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Hay Mohammadi
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Route de Casablanca
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Route d'Ourika
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Bab Doukkala
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Bab El Khemis
-      </div>
-
-      <div class="zone-card">
-        <span>📍</span> Mhamid
+      <!-- Map -->
+      <div class="w-full h-[400px] rounded-2xl overflow-hidden shadow-lg">
+        <iframe
+          id="mapFrame"
+          class="w-full h-full border-0"
+          src="https://maps.google.com/maps?q=31.6295,-8.0089&z=13&output=embed">
+        </iframe>
       </div>
 
     </div>
 
   </div>
 </section>
+
+
+
+<script>
+  function focusMap(lat, lng) {
+    const map = document.getElementById("mapFrame");
+    map.src = `https://maps.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
+  }
+</script>
