@@ -45,21 +45,29 @@
 
 <!-- 🎨 CSS -->
 <style>
+<style>
 .zone-card {
   padding: 12px 20px;
   border-radius: 12px;
-  background: #0F172A;
+  background: white;
   border: 1px solid #e5e7eb;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: #111827;
+}
+
+/* 🌙 Dark mode */
+.dark .zone-card {
+  background: #1f2937; /* نفس bg-gray-800 */
+  border-color: #374151; /* نفس gray-700 */
   color: white;
 }
 
-/* نفس card style */
+/* ✨ Hover */
 .zone-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   background: linear-gradient(to right, #D73D3F, #D73D3F);
   color: white;
   border-color: transparent;
