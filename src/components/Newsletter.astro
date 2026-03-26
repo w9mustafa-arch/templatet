@@ -24,7 +24,7 @@
     <!-- Zones -->
     <div id="zonesList" class="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
 
-      <button class="zone-chip">Gueliz</button>
+      <button class="zone-chip" onclick="order('Gueliz')">Gueliz</button>
       <button class="zone-chip">Medina</button>
       <button class="zone-chip">Hivernage</button>
       <button class="zone-chip">Palmeraie</button>
@@ -58,4 +58,13 @@
       }
     });
   });
+</script>
+
+
+<script>
+  function order(area) {
+    const phone = "212600000000";
+    const message = `Hello, I want delivery in ${area} 🚚`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
+  }
 </script>
