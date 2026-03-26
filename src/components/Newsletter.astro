@@ -2,41 +2,38 @@
   <div class="container-custom mx-auto px-4">
 
     <!-- Header -->
-    <div class="text-center max-w-2xl mx-auto mb-14">
+    <div class="text-center max-w-2xl mx-auto mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         Delivery Areas in Marrakech 🚚
       </h2>
       <p class="text-gray-600 dark:text-gray-300">
-        We deliver to the most popular areas. Tap to view location.
+        Search your area and order instantly.
       </p>
     </div>
 
+    <!-- Search -->
+    <div class="max-w-xl mx-auto mb-10">
+      <input 
+        type="text" 
+        id="zoneSearch"
+        placeholder="Search your area..."
+        class="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none"
+      />
+    </div>
+
     <!-- Zones -->
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <div id="zonesList" class="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
 
-      <a href="https://maps.google.com?q=Gueliz Marrakech" target="_blank" class="zone-card">
-        📍 Gueliz
-      </a>
-
-      <a href="https://maps.google.com?q=Medina Marrakech" target="_blank" class="zone-card">
-        📍 Medina
-      </a>
-
-      <a href="https://maps.google.com?q=Hivernage Marrakech" target="_blank" class="zone-card">
-        📍 Hivernage
-      </a>
-
-      <a href="https://maps.google.com?q=Palmeraie Marrakech" target="_blank" class="zone-card">
-        📍 Palmeraie
-      </a>
-
-      <a href="https://maps.google.com?q=Targa Marrakech" target="_blank" class="zone-card">
-        📍 Targa
-      </a>
-
-      <a href="https://maps.google.com?q=Massira Marrakech" target="_blank" class="zone-card">
-        📍 Massira
-      </a>
+      <button class="zone-chip">Gueliz</button>
+      <button class="zone-chip">Medina</button>
+      <button class="zone-chip">Hivernage</button>
+      <button class="zone-chip">Palmeraie</button>
+      <button class="zone-chip">Targa</button>
+      <button class="zone-chip">Massira</button>
+      <button class="zone-chip">Daoudiate</button>
+      <button class="zone-chip">Amerchich</button>
+      <button class="zone-chip">Mhamid</button>
+      <button class="zone-chip">Sidi Ghanem</button>
 
     </div>
 
