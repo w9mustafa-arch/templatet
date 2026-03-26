@@ -25,23 +25,26 @@
     <div id="zonesList" class="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
 
       <button class="zone-chip" onclick="order('Gueliz')">Gueliz</button>
-<button class="zone-chip" onclick="order('Medina')">Medina</button>
-<button class="zone-chip" onclick="order('Hivernage')">Hivernage</button>
-<button class="zone-chip" onclick="order('Palmeraie')">Palmeraie</button>
-<button class="zone-chip" onclick="order('Targa')">Targa</button>
-<button class="zone-chip" onclick="order('Massira')">Massira</button>
-<button class="zone-chip" onclick="order('Daoudiate')">Daoudiate</button>
-<button class="zone-chip" onclick="order('Amerchich')">Amerchich</button>
-<button class="zone-chip" onclick="order('Mhamid')">Mhamid</button>
-<button class="zone-chip" onclick="order('Sidi Ghanem')">Sidi Ghanem</button>
+      <button class="zone-chip" onclick="order('Medina')">Medina</button>
+      <button class="zone-chip" onclick="order('Hivernage')">Hivernage</button>
+      <button class="zone-chip" onclick="order('Palmeraie')">Palmeraie</button>
+      <button class="zone-chip" onclick="order('Targa')">Targa</button>
+      <button class="zone-chip" onclick="order('Massira')">Massira</button>
+      <button class="zone-chip" onclick="order('Daoudiate')">Daoudiate</button>
+      <button class="zone-chip" onclick="order('Amerchich')">Amerchich</button>
+      <button class="zone-chip" onclick="order('Mhamid')">Mhamid</button>
+      <button class="zone-chip" onclick="order('Sidi Ghanem')">Sidi Ghanem</button>
 
     </div>
 
   </div>
 </section>
 
-
+<!-- JavaScript داخل نفس القسم -->
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 🔍 البحث
   const searchInput = document.getElementById("zoneSearch");
   const zones = document.querySelectorAll(".zone-chip");
 
@@ -50,21 +53,16 @@
 
     zones.forEach(zone => {
       const text = zone.textContent.toLowerCase();
-
-      if (text.includes(value)) {
-        zone.style.display = "inline-block";
-      } else {
-        zone.style.display = "none";
-      }
+      zone.style.display = text.includes(value) ? "inline-block" : "none";
     });
   });
-</script>
 
+  // 📲 الطلب عبر واتساب
+  window.order = function(area) {
+    const phone = "212600000000"; // ضع رقمك هنا
+    const message = `Bonjour, je veux une livraison à ${area} 🚚`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+  };
 
-<script>
-  function order(area) {
-    const phone = "212600000000";
-    const message = `Hello, I want delivery in ${area} 🚚`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
-  }
+});
 </script>
