@@ -1,81 +1,88 @@
-<section id="delivery-zones" class="py-20 bg-gray-50 dark:bg-gray-900">
-  <div class="container-custom mx-auto px-4">
+<section id="delivery-zones" class="section">
+  <div class="container-custom">
 
     <!-- Header -->
-    <div class="text-center max-w-2xl mx-auto mb-10">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Delivery Areas in Marrakech 🚚
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="inline-block px-4 py-1 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300 font-medium text-sm mb-4">
+        Delivery Zones
+      </span>
+
+      <h2 class="mb-6 text-gray-900 dark:text-white">
+        Where We Deliver 🚚
       </h2>
+
       <p class="text-gray-600 dark:text-gray-300">
-        Search your area and order instantly.
+        Search your area and order instantly via WhatsApp.
       </p>
     </div>
 
     <!-- Search -->
-    <div class="max-w-xl mx-auto mb-10">
+    <div class="max-w-xl mx-auto mb-12">
       <input 
         type="text" 
         id="zoneSearch"
         placeholder="Search your area..."
-        class="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none"
+        class="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition"
       />
     </div>
 
     <!-- Zones -->
-    <div id="zonesList" class="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
+    <div id="zonesList" class="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
 
-      <!-- مناطق ظاهرة -->
-      <button class="zone-chip" onclick="order('Gueliz')">Gueliz</button>
-      <button class="zone-chip" onclick="order('Medina')">Medina</button>
-      <button class="zone-chip" onclick="order('Hivernage')">Hivernage</button>
-      <button class="zone-chip" onclick="order('Palmeraie')">Palmeraie</button>
-      <button class="zone-chip" onclick="order('Targa')">Targa</button>
+      <!-- Visible -->
+      <button class="zone-card" onclick="order('Gueliz')">Gueliz</button>
+      <button class="zone-card" onclick="order('Medina')">Medina</button>
+      <button class="zone-card" onclick="order('Hivernage')">Hivernage</button>
+      <button class="zone-card" onclick="order('Palmeraie')">Palmeraie</button>
+      <button class="zone-card" onclick="order('Targa')">Targa</button>
 
-      <!-- مناطق مخفية -->
-      <button class="zone-chip hidden-zone" data-hidden="true" onclick="order('Hay Hassani')">Hay Hassani</button>
-      <button class="zone-chip hidden-zone" data-hidden="true" onclick="order('Azli')">Azli</button>
-      <button class="zone-chip hidden-zone" data-hidden="true" onclick="order('Saada')">Saada</button>
-      <button class="zone-chip hidden-zone" data-hidden="true" onclick="order('Izdihar')">Izdihar</button>
-      <button class="zone-chip hidden-zone" data-hidden="true" onclick="order('Tamansourt')">Tamansourt</button>
+      <!-- Hidden -->
+      <button class="zone-card hidden-zone" data-hidden="true" onclick="order('Hay Hassani')">Hay Hassani</button>
+      <button class="zone-card hidden-zone" data-hidden="true" onclick="order('Azli')">Azli</button>
+      <button class="zone-card hidden-zone" data-hidden="true" onclick="order('Saada')">Saada</button>
+      <button class="zone-card hidden-zone" data-hidden="true" onclick="order('Izdihar')">Izdihar</button>
+      <button class="zone-card hidden-zone" data-hidden="true" onclick="order('Tamansourt')">Tamansourt</button>
 
     </div>
 
   </div>
 </section>
 
-<!-- CSS -->
+<!-- 🎨 CSS -->
 <style>
-.zone-chip {
-  padding: 10px 16px;
-  border-radius: 999px;
+.zone-card {
+  padding: 12px 20px;
+  border-radius: 12px;
   background: white;
   border: 1px solid #e5e7eb;
-  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
-.zone-chip:hover {
-  background: #2563eb;
+/* نفس card style */
+.zone-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  background: linear-gradient(to right, #3b82f6, #6366f1);
   color: white;
-  transform: scale(1.05);
+  border-color: transparent;
 }
 
-/* إخفاء المناطق المخفية */
+/* مخفي */
 .hidden-zone {
   display: none;
 }
 </style>
 
-<!-- JavaScript -->
+<!-- ⚡ JavaScript -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
   const searchInput = document.getElementById("zoneSearch");
-  const zones = document.querySelectorAll(".zone-chip");
+  const zones = document.querySelectorAll(".zone-card");
 
-  // 🔍 البحث
+  // 🔍 Search
   searchInput.addEventListener("input", function () {
     const value = this.value.toLowerCase();
 
@@ -84,19 +91,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const isHidden = zone.getAttribute("data-hidden");
 
       if (value === "") {
-        // إذا البحث فارغ
         zone.style.display = isHidden ? "none" : "inline-block";
       } else {
-        // أثناء البحث
         zone.style.display = text.includes(value) ? "inline-block" : "none";
       }
     });
   });
 
-  // 📲 الطلب عبر واتساب
+  // 📲 WhatsApp
   window.order = function(area) {
-    const phone = "212600000000"; // ضع رقمك هنا
-    const message = `Bonjour, je veux une livraison à ${area} 🚚`;
+    const phone = "212600000000";
+    const message = `Hello, I want delivery in ${area} 🚚`;
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
