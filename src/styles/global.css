@@ -190,18 +190,3 @@
 :focus-visible {
   @apply outline-hidden ring-2 ring-primary-500 dark:ring-primary-400;
 }
-
-
-
-.zone-chip {
-  @apply px-4 py-2 rounded-full 
-         bg-white dark:bg-gray-800 
-         border border-gray-200 dark:border-gray-700
-         text-gray-700 dark:text-gray-300 
-         text-sm font-medium
-         transition-all duration-300;
-}
-
-.zone-chip:hover {
-  @apply bg-blue-500 text-white scale-105 shadow-md;
-}
