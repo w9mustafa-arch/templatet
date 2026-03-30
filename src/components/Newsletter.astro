@@ -12,14 +12,22 @@
 
 
     <!-- Search -->
-    <div class="max-w-xl mx-auto mb-12">
-      <input 
-        type="text" 
-        id="zoneSearch"
-        placeholder="Search your area..."
-        class="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition"
-      />
-    </div>
+<div class="max-w-xl mx-auto mb-4">
+  <input 
+    type="text" 
+    id="zoneSearch"
+    placeholder="Search your area..."
+    class="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition"
+  />
+
+  <!-- 👇 هنا تضيفها -->
+  <p class="text-sm text-gray-500 mt-3 text-center">
+    Can't find your area? 
+    <a href="#" onclick="contactWhatsApp()" class="text-primary-600 font-medium hover:underline">
+      Contact us on WhatsApp 📲
+    </a>
+  </p>
+</div>
 
     <!-- Zones -->
     <div id="zonesList" class="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
@@ -109,4 +117,11 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 });
+
+
+window.contactWhatsApp = function() {
+  const phone = "212600000000";
+  const message = "Hello 👋 I can't find my area. Can you help me with delivery? 🚚";
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+};
 </script>
