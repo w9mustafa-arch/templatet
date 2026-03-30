@@ -192,41 +192,41 @@
 }
 
 
-.slider {
-  overflow: hidden;
-  position: relative;
-}
 
-.slide-track {
+.partners-slider {
   display: flex;
-  width: calc(200px * 10);
-  animation: scroll 25s linear infinite;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
 }
 
-.slide-track img {
-  width: 160px;
-  height: auto;
-  margin: 0 20px;
-  opacity: 0.7;
-  transition: all 0.3s ease;
+/* اخفاء scrollbar */
+.partners-slider::-webkit-scrollbar {
+  display: none;
 }
 
-.slide-track img:hover {
-  opacity: 1;
-  transform: scale(1.1);
+.partner-card {
+  min-width: 90px;
+  height: 90px;
+  background: #fff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: 0.3s;
 }
 
-/* توقف عند hover */
-.slider:hover .slide-track {
-  animation-play-state: paused;
+.partner-card img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
 }
 
-/* الحركة */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* Hover effect */
+.partner-card:hover {
+  transform: translateY(-4px);
 }
