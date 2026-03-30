@@ -192,70 +192,95 @@
 }
 
 
-.partners-section {
-  padding: 30px 0;
-  background: transparent;
+
+
+
+.partners {
+  padding: 40px 0;
   overflow: hidden;
 }
 
-/* Wrapper */
+/* wrapper */
 .slider {
   position: relative;
   overflow: hidden;
 }
 
-/* Fade effect */
+/* fade احترافي */
 .slider::before,
 .slider::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 80px;
+  width: 100px;
   height: 100%;
-  z-index: 2;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .slider::before {
   left: 0;
-  background: linear-gradient(to right, white, transparent);
+  background: linear-gradient(to right, #fff 0%, transparent 100%);
 }
 
 .slider::after {
   right: 0;
-  background: linear-gradient(to left, white, transparent);
+  background: linear-gradient(to left, #fff 0%, transparent 100%);
 }
 
-/* Track */
+/* track */
 .slide-track {
   display: flex;
-  width: calc(120px * 10);
-  animation: scroll 25s linear infinite;
-}
-
-/* Item */
-.slide {
-  width: 120px;
-  height: 80px;
-  margin: 0 10px;
-
-  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 30px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
 }
 
-/* Logo */
+/* توقف عند hover 🔥 */
+.slider:hover .slide-track {
+  animation-play-state: paused;
+}
+
+/* slide */
+.slide {
+  flex: 0 0 auto;
+}
+
+/* logos */
 .slide img {
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
+  opacity: 0.85;
+  transition: all 0.3s ease;
 }
 
-/* Animation */
+/* hover effect */
+.slide img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* animation smooth */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* responsive 🔥 */
+@media (max-width: 768px) {
+  .slide img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .slider::before,
+  .slider::after {
+    width: 50px;
   }
 }
