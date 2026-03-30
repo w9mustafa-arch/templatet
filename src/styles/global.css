@@ -190,3 +190,43 @@
 :focus-visible {
   @apply outline-hidden ring-2 ring-primary-500 dark:ring-primary-400;
 }
+
+
+.slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-track {
+  display: flex;
+  width: calc(200px * 10);
+  animation: scroll 25s linear infinite;
+}
+
+.slide-track img {
+  width: 160px;
+  height: auto;
+  margin: 0 20px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.slide-track img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* توقف عند hover */
+.slider:hover .slide-track {
+  animation-play-state: paused;
+}
+
+/* الحركة */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
