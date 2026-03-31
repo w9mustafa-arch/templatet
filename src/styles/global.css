@@ -209,7 +209,7 @@
 .slide-track {
   display: flex;
   align-items: center;
-  gap: 20px; /* كان 50px */
+  gap: 1px; /* كان 50px */
   width: max-content;
   animation: scroll 25s linear infinite;
 }
