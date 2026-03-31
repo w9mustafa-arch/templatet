@@ -212,8 +212,8 @@
   content: "";
   position: absolute;
   top: 0;
-  width: 100px;
-  height: 100%;
+  width: 150px;
+  height: 150px;
   z-index: 5;
   pointer-events: none;
 }
