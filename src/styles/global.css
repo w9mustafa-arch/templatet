@@ -216,7 +216,7 @@
 
 .slide {
   flex: 0 0 auto;
-  min-width: 90px; /* كان 120px */
+  min-width: 0px; /* كان 120px */
   display: flex;
   align-items: center;
   justify-content: center;
