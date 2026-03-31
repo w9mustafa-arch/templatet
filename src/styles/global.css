@@ -209,15 +209,14 @@
 .slide-track {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 20px; /* كان 50px */
   width: max-content;
   animation: scroll 25s linear infinite;
 }
 
-/* slide */
 .slide {
   flex: 0 0 auto;
-  min-width: 120px;
+  min-width: 90px; /* كان 120px */
   display: flex;
   align-items: center;
   justify-content: center;
