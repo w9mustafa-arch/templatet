@@ -196,36 +196,46 @@
 
 
 .partners {
-  padding: 40px 0;
+  padding: 30px 0;
   overflow: hidden;
 }
 
-/* wrapper */
 .slider {
   overflow: hidden;
 }
 
-/* track */
 .slide-track {
   display: flex;
   align-items: center;
-  gap: 1px; /* كان 50px */
+  gap: 10px; /* قريب بزاف */
   width: max-content;
   animation: scroll 25s linear infinite;
 }
 
+/* base */
 .slide {
   flex: 0 0 auto;
-  min-width: 0px; /* كان 120px */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* logos */
+/* مربع */
+.slide.square {
+  width: 80px;
+  height: 80px;
+}
+
+/* مستطيل (ضعف العرض) */
+.slide.wide {
+  width: 140px;
+  height: 80px;
+}
+
+/* الصور */
 .slide img {
-  width: 90px;
-  height: 90px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -239,14 +249,19 @@
   }
 }
 
-/* responsive */
+/* موبايل */
 @media (max-width: 768px) {
-  .slide img {
+  .slide.square {
     width: 60px;
     height: 60px;
   }
 
+  .slide.wide {
+    width: 110px;
+    height: 60px;
+  }
+
   .slide-track {
-    gap: 30px;
+    gap: 8px;
   }
 }
