@@ -3,113 +3,99 @@
 
 <section class="partners">
   <div class="slider" id="slider">
-    <div class="slide-track" id="track">
+    <div class="track" id="track">
 
       <!-- عناصر -->
-      <div class="card square"><img src="/logo1.png" alt="logo"></div>
-      <div class="card wide"><img src="/food1.jpg" alt="food"></div>
+      <div class="card square"><img src="/logo1.png" alt=""></div>
+      <div class="card wide"><img src="/food1.jpg" alt=""></div>
 
-      <div class="card square"><img src="/logo2.png" alt="logo"></div>
-      <div class="card wide"><img src="/food2.jpg" alt="food"></div>
+      <div class="card square"><img src="/logo2.png" alt=""></div>
+      <div class="card wide"><img src="/food2.jpg" alt=""></div>
 
-      <div class="card square"><img src="/logo3.png" alt="logo"></div>
-      <div class="card wide"><img src="/food3.jpg" alt="food"></div>
+      <div class="card square"><img src="/logo3.png" alt=""></div>
+      <div class="card wide"><img src="/food3.jpg" alt=""></div>
 
     </div>
   </div>
 </section>
 
 <style>
+/* بدون أي مسافات */
 .partners {
-  position: relative;
   overflow: hidden;
-  padding: 40px 0;
 }
 
-/* Fade edges */
-.partners::before,
-.partners::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 80px;
-  height: 100%;
-  z-index: 2;
-}
-
-.partners::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg, #fff), transparent);
-}
-
-.partners::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg, #fff), transparent);
-}
-
+/* slider */
 .slider {
   overflow: hidden;
   cursor: grab;
 }
 
-.slide-track {
+/* track */
+.track {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   width: max-content;
+  will-change: transform;
 }
 
+/* cards */
 .card {
-  border-radius: 16px;
-  overflow: hidden;
   flex-shrink: 0;
-  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #eee;
 }
 
 .card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-/* Sizes */
+/* sizes */
 .square {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 }
 
 .wide {
-  width: 180px;
-  height: 100px;
+  width: 160px;
+  height: 90px;
 }
 </style>
 
-<script>
+<script client:load>
 const track = document.getElementById("track");
 const slider = document.getElementById("slider");
 
 // duplicate for infinite
 track.innerHTML += track.innerHTML;
 
-let speed = 0.5;
+let speed = 0.4;
 let position = 0;
+let isDown = false;
+let startX = 0;
+let startPos = 0;
 
-function animate() {
-  position -= speed;
+/* animation */
+function loop() {
+  if (!isDown) {
+    position -= speed;
 
-  if (Math.abs(position) >= track.scrollWidth / 2) {
-    position = 0;
+    if (Math.abs(position) >= track.scrollWidth / 2) {
+      position = 0;
+    }
+
+    track.style.transform = `translate3d(${position}px,0,0)`;
   }
 
-  track.style.transform = `translateX(${position}px)`;
-  requestAnimationFrame(animate);
+  requestAnimationFrame(loop);
 }
-animate();
+loop();
 
-// drag
-let isDown = false;
-let startX;
-let startPos;
-
+/* mouse */
 slider.addEventListener("mousedown", (e) => {
   isDown = true;
   startX = e.pageX;
@@ -117,34 +103,31 @@ slider.addEventListener("mousedown", (e) => {
   slider.style.cursor = "grabbing";
 });
 
-slider.addEventListener("mouseup", () => {
-  isDown = false;
-  slider.style.cursor = "grab";
-});
-
-slider.addEventListener("mouseleave", () => {
+window.addEventListener("mouseup", () => {
   isDown = false;
   slider.style.cursor = "grab";
 });
 
 slider.addEventListener("mousemove", (e) => {
   if (!isDown) return;
-  const walk = e.pageX - startX;
-  position = startPos + walk;
+  const dx = e.pageX - startX;
+  position = startPos + dx;
 });
 
-// touch
+/* touch */
 slider.addEventListener("touchstart", (e) => {
+  isDown = true;
   startX = e.touches[0].pageX;
   startPos = position;
 });
 
-slider.addEventListener("touchmove", (e) => {
-  const walk = e.touches[0].pageX - startX;
-  position = startPos + walk;
+slider.addEventListener("touchend", () => {
+  isDown = false;
 });
 
-// pause on hover
-slider.addEventListener("mouseenter", () => speed = 0);
-slider.addEventListener("mouseleave", () => speed = 0.5);
+slider.addEventListener("touchmove", (e) => {
+  if (!isDown) return;
+  const dx = e.touches[0].pageX - startX;
+  position = startPos + dx;
+});
 </script>
