@@ -1,85 +1,150 @@
-<section id="partners" class="partners">
-  <div class="slider">
-    <div class="slide-track">
+---
+---
 
-      <!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
+<section class="partners">
+  <div class="slider" id="slider">
+    <div class="slide-track" id="track">
 
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
+      <!-- عناصر -->
+      <div class="card square"><img src="/logo1.png" alt="logo"></div>
+      <div class="card wide"><img src="/food1.jpg" alt="food"></div>
 
+      <div class="card square"><img src="/logo2.png" alt="logo"></div>
+      <div class="card wide"><img src="/food2.jpg" alt="food"></div>
 
-      <!-- مربع -->
-      <div class="card square">
-      <!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
-
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
-
-<!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
-
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
-
-
-<!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
-
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
-
-
-
-<!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
-
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
-
-
-<!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
-
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
-
-
-<!-- مربع -->
-      <div class="card square">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/250x250/731b62d61e/mcdonalds-logo-green-250x250.png">
-      </div>
-
-      <!-- مستطيل -->
-      <div class="card wide">
-        <img src="https://img2.storyblok.com/filters:format(webp)/f/62776/2133x1200/aa167a689c/burger.jpg">
-      </div>
+      <div class="card square"><img src="/logo3.png" alt="logo"></div>
+      <div class="card wide"><img src="/food3.jpg" alt="food"></div>
 
     </div>
   </div>
 </section>
+
+<style>
+.partners {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0;
+}
+
+/* Fade edges */
+.partners::before,
+.partners::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 2;
+}
+
+.partners::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg, #fff), transparent);
+}
+
+.partners::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg, #fff), transparent);
+}
+
+.slider {
+  overflow: hidden;
+  cursor: grab;
+}
+
+.slide-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+}
+
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sizes */
+.square {
+  width: 100px;
+  height: 100px;
+}
+
+.wide {
+  width: 180px;
+  height: 100px;
+}
+</style>
+
+<script>
+const track = document.getElementById("track");
+const slider = document.getElementById("slider");
+
+// duplicate for infinite
+track.innerHTML += track.innerHTML;
+
+let speed = 0.5;
+let position = 0;
+
+function animate() {
+  position -= speed;
+
+  if (Math.abs(position) >= track.scrollWidth / 2) {
+    position = 0;
+  }
+
+  track.style.transform = `translateX(${position}px)`;
+  requestAnimationFrame(animate);
+}
+animate();
+
+// drag
+let isDown = false;
+let startX;
+let startPos;
+
+slider.addEventListener("mousedown", (e) => {
+  isDown = true;
+  startX = e.pageX;
+  startPos = position;
+  slider.style.cursor = "grabbing";
+});
+
+slider.addEventListener("mouseup", () => {
+  isDown = false;
+  slider.style.cursor = "grab";
+});
+
+slider.addEventListener("mouseleave", () => {
+  isDown = false;
+  slider.style.cursor = "grab";
+});
+
+slider.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+  const walk = e.pageX - startX;
+  position = startPos + walk;
+});
+
+// touch
+slider.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].pageX;
+  startPos = position;
+});
+
+slider.addEventListener("touchmove", (e) => {
+  const walk = e.touches[0].pageX - startX;
+  position = startPos + walk;
+});
+
+// pause on hover
+slider.addEventListener("mouseenter", () => speed = 0);
+slider.addEventListener("mouseleave", () => speed = 0.5);
+</script>
