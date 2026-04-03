@@ -56,8 +56,6 @@ function initWhatsAppReal() {
 
   document.body.appendChild(container);
 
-  let isStopped = false;
-
   function show() {
     container.classList.remove('pointer-events-none');
     btn.classList.remove('scale-0', 'opacity-0');
@@ -93,29 +91,24 @@ function initWhatsAppReal() {
     show();
   }
 
-  /* FOOTER STOP */
-  if (footer) {
-    const footerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          container.style.position = "absolute";
-          container.style.bottom = "20px";
-          container.style.right = "20px";
-          isStopped = true;
-        } else {
-          if (isStopped) {
-            container.style.position = "fixed";
-            container.style.bottom = "20px";
-            container.style.right = "20px";
-            isStopped = false;
-          }
-        }
-      },
-      { threshold: 0 }
-    );
+  /* FOOTER PUSH EFFECT 🔥 */
+  function handleFooter() {
+    if (!footer) return;
 
-    footerObserver.observe(footer);
+    const footerRect = footer.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // إذا الفوتر قرب للشاشة
+    if (footerRect.top < windowHeight - 100) {
+      const overlap = windowHeight - footerRect.top;
+      container.style.transform = `translateY(-${overlap}px)`;
+    } else {
+      container.style.transform = `translateY(0px)`;
+    }
   }
+
+  window.addEventListener('scroll', handleFooter);
+  window.addEventListener('resize', handleFooter);
 }
 
 initWhatsAppReal();
