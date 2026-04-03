@@ -2,10 +2,20 @@
 ---
 
 <section class="partners">
-  <div class="slider" id="slider">
-    <div class="track" id="track">
+  <div class="slider">
+    <div class="track">
 
-      <!-- عناصر -->
+      <!-- العناصر -->
+      <div class="card square"><img src="/logo1.png" alt=""></div>
+      <div class="card wide"><img src="/food1.jpg" alt=""></div>
+
+      <div class="card square"><img src="/logo2.png" alt=""></div>
+      <div class="card wide"><img src="/food2.jpg" alt=""></div>
+
+      <div class="card square"><img src="/logo3.png" alt=""></div>
+      <div class="card wide"><img src="/food3.jpg" alt=""></div>
+
+      <!-- تكرار (مهم ل infinite) -->
       <div class="card square"><img src="/logo1.png" alt=""></div>
       <div class="card wide"><img src="/food1.jpg" alt=""></div>
 
@@ -20,15 +30,14 @@
 </section>
 
 <style>
-/* بدون أي مسافات */
+/* بدون مسافات */
 .partners {
   overflow: hidden;
 }
 
-/* slider */
+/* container */
 .slider {
   overflow: hidden;
-  cursor: grab;
 }
 
 /* track */
@@ -36,7 +45,7 @@
   display: flex;
   gap: 12px;
   width: max-content;
-  will-change: transform;
+  animation: scroll 25s linear infinite;
 }
 
 /* cards */
@@ -44,7 +53,6 @@
   flex-shrink: 0;
   border-radius: 14px;
   overflow: hidden;
-  background: #eee;
 }
 
 .card img {
@@ -64,70 +72,14 @@
   width: 160px;
   height: 90px;
 }
-</style>
-
-<script client:load>
-const track = document.getElementById("track");
-const slider = document.getElementById("slider");
-
-// duplicate for infinite
-track.innerHTML += track.innerHTML;
-
-let speed = 0.4;
-let position = 0;
-let isDown = false;
-let startX = 0;
-let startPos = 0;
 
 /* animation */
-function loop() {
-  if (!isDown) {
-    position -= speed;
-
-    if (Math.abs(position) >= track.scrollWidth / 2) {
-      position = 0;
-    }
-
-    track.style.transform = `translate3d(${position}px,0,0)`;
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
-
-  requestAnimationFrame(loop);
+  100% {
+    transform: translateX(-50%);
+  }
 }
-loop();
-
-/* mouse */
-slider.addEventListener("mousedown", (e) => {
-  isDown = true;
-  startX = e.pageX;
-  startPos = position;
-  slider.style.cursor = "grabbing";
-});
-
-window.addEventListener("mouseup", () => {
-  isDown = false;
-  slider.style.cursor = "grab";
-});
-
-slider.addEventListener("mousemove", (e) => {
-  if (!isDown) return;
-  const dx = e.pageX - startX;
-  position = startPos + dx;
-});
-
-/* touch */
-slider.addEventListener("touchstart", (e) => {
-  isDown = true;
-  startX = e.touches[0].pageX;
-  startPos = position;
-});
-
-slider.addEventListener("touchend", () => {
-  isDown = false;
-});
-
-slider.addEventListener("touchmove", (e) => {
-  if (!isDown) return;
-  const dx = e.touches[0].pageX - startX;
-  position = startPos + dx;
-});
-</script>
+</style>
