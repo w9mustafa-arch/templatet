@@ -36,47 +36,59 @@
 </div>
 
 <script is:inline>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function initCookieBanner() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
 
-  // منع التتبع افتراضياً
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    analytics_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied'
-  });
-
-  const banner = document.getElementById("cookie-banner");
-
-  function hideBanner() {
-    banner.style.display = "none";
-  }
-
-  const consent = localStorage.getItem("cookie_consent");
-
-  // إذا وافق من قبل
-  if (consent === "accepted") {
-    gtag('consent', 'update', {
-      ad_storage: 'granted',
-      analytics_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted'
-    });
-    hideBanner();
-  }
-
-  // زر موافق فقط
-  document.getElementById("accept-btn").onclick = function() {
-    localStorage.setItem("cookie_consent", "accepted");
-
-    gtag('consent', 'update', {
-      ad_storage: 'granted',
-      analytics_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted'
+    // منع التتبع افتراضياً
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
     });
 
-    hideBanner();
-  };
+    const banner = document.getElementById("cookie-banner");
+    if (!banner) return;
+
+    function hideBanner() {
+      banner.style.display = "none";
+    }
+
+    const consent = localStorage.getItem("cookie_consent");
+
+    if (consent === "accepted") {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+      hideBanner();
+      return;
+    }
+
+    const btn = document.getElementById("accept-btn");
+    if (!btn) return;
+
+    btn.onclick = function() {
+      localStorage.setItem("cookie_consent", "accepted");
+
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+
+      hideBanner();
+    };
+  }
+
+  // أول تحميل
+  document.addEventListener("DOMContentLoaded", initCookieBanner);
+
+  // عند التنقل بين الصفحات (Astro SPA)
+  document.addEventListener("astro:page-load", initCookieBanner);
+  document.addEventListener("astro:after-swap", initCookieBanner);
 </script>
