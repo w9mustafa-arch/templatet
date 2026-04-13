@@ -1,0 +1,110 @@
+---
+// لا يوجد JS هنا (نستخدم script في الأسفل)
+---
+
+<style>
+#cookie-banner {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  background: #111;
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  font-size: 14px;
+}
+
+#cookie-banner button {
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#accept-btn {
+  background: #1C72E9;
+  color: #fff;
+}
+
+#reject-btn {
+  background: #444;
+  color: #fff;
+}
+</style>
+
+<div id="cookie-banner">
+  <div>
+    نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتشغيل الإعلانات.
+  </div>
+  <div style="display:flex; gap:10px;">
+    <button id="accept-btn">موافق</button>
+    <button id="reject-btn">رفض</button>
+  </div>
+</div>
+
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // الوضع الافتراضي (مهم جدا)
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+
+  const banner = document.getElementById("cookie-banner");
+
+  function hideBanner() {
+    banner.style.display = "none";
+  }
+
+  const consent = localStorage.getItem("cookie_consent");
+
+  if (consent === "accepted") {
+    gtag('consent', 'update', {
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted'
+    });
+    hideBanner();
+  }
+
+  if (consent === "rejected") {
+    hideBanner();
+  }
+
+  document.getElementById("accept-btn").onclick = function() {
+    localStorage.setItem("cookie_consent", "accepted");
+
+    gtag('consent', 'update', {
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted'
+    });
+
+    hideBanner();
+  };
+
+  document.getElementById("reject-btn").onclick = function() {
+    localStorage.setItem("cookie_consent", "rejected");
+
+    gtag('consent', 'update', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+
+    hideBanner();
+  };
+</script>
