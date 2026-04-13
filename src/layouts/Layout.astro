@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import '../styles/transitions.css';
 import { ClientRouter } from 'astro:transitions';
-import CookieConsent from '../components/CookieConsent.astro';
 
 export interface Props {
   title: string;
@@ -28,27 +27,6 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
     <ClientRouter />
-
-<!-- Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXX"></script>
-
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-
-  // ❗ منع التتبع افتراضياً (مهم جداً)
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    analytics_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied'
-  });
-
-  gtag('js', new Date());
-
-  // إعداد Google Ads
-  gtag('config', 'AW-XXXX');
-</script>
 
   </head>
   <body class="antialiased bg-white dark:bg-secondary-950 text-secondary-900 dark:text-secondary-100 transition-colors duration-300">
@@ -85,7 +63,6 @@ const {
       });
     </script>
     <script src="../scripts/transitions.js"></script>
-<CookieConsent />
 
   </body>
 </html>
