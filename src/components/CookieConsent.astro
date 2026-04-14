@@ -81,4 +81,15 @@
 
   acceptBtn.addEventListener("click", acceptCookies);
   rejectBtn.addEventListener("click", rejectCookies);
+
+if (consent === "accepted") {
+  if (typeof gtag !== "undefined") {
+    gtag('consent', 'update', {
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted'
+    });
+  }
+}
 </script>
