@@ -50,16 +50,35 @@
     banner.classList.remove("hidden");
   }
 
-  acceptBtn.addEventListener("click", () => {
+  function acceptCookies() {
     localStorage.setItem("cookie-consent", "accepted");
     banner.classList.add("hidden");
 
-    // هنا تقدر تشغل Google Analytics مثلا
-    // loadAnalytics();
-  });
+    // 🔥 تحديث Google Consent Mode
+    if (typeof gtag !== "undefined") {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  }
 
-  rejectBtn.addEventListener("click", () => {
+  function rejectCookies() {
     localStorage.setItem("cookie-consent", "rejected");
     banner.classList.add("hidden");
-  });
+
+    if (typeof gtag !== "undefined") {
+      gtag('consent', 'update', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    }
+  }
+
+  acceptBtn.addEventListener("click", acceptCookies);
+  rejectBtn.addEventListener("click", rejectCookies);
 </script>
