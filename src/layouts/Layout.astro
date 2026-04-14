@@ -82,6 +82,50 @@ const {
     </script>
     <script src="../scripts/transitions.js"></script>
 
+<script>
+  // 📱 WhatsApp
+  function goToWhatsApp(e) {
+    e.preventDefault();
+
+    if (typeof gtag !== "undefined") {
+      gtag('event', 'conversion', {
+        send_to: 'AW-XXXX/WHATSAPP_LABEL',
+        event_callback: function () {
+          window.location.href = "https://wa.me/212XXXXXXXXX";
+        }
+      });
+
+      setTimeout(() => {
+        window.location.href = "https://wa.me/212XXXXXXXXX";
+      }, 1000);
+
+    } else {
+      window.location.href = "https://wa.me/212XXXXXXXXX";
+    }
+  }
+
+  // 📞 Call
+  function goToCall(e) {
+    e.preventDefault();
+
+    if (typeof gtag !== "undefined") {
+      gtag('event', 'conversion', {
+        send_to: 'AW-XXXX/CALL_LABEL',
+        event_callback: function () {
+          window.location.href = "tel:+212XXXXXXXXX";
+        }
+      });
+
+      setTimeout(() => {
+        window.location.href = "tel:+212XXXXXXXXX";
+      }, 1000);
+
+    } else {
+      window.location.href = "tel:+212XXXXXXXXX";
+    }
+  }
+</script>
+
   <CookieConsent />
   </body>
 </html>
