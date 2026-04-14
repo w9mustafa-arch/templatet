@@ -1,89 +1,65 @@
 ---
 ---
 
-<style>
-.cookie-banner {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  max-width: 500px;
-  margin: auto;
-  background: #0f172a;
-  color: #fff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  z-index: 9999;
-  display: none;
-  animation: fadeIn 0.4s ease;
-}
+<div
+  id="cookieBanner"
+  class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-[9999] hidden slide-up"
+>
+  <div class="card p-5 backdrop-blur-md bg-white/95 dark:bg-secondary-900/95">
 
-.cookie-banner.show {
-  display: block;
-}
+    <!-- Title -->
+    <h4 class="mb-2 flex items-center gap-2">
+      🍪 We use cookies
+    </h4>
 
-.cookie-buttons {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-}
+    <!-- Text -->
+    <p class="text-secondary-600 dark:text-secondary-300 text-sm">
+      We use cookies to improve your experience, analyze traffic, and deliver better content.
+    </p>
 
-.cookie-buttons button {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    <!-- Buttons -->
+    <div class="flex gap-2 mt-4">
+      <button class="btn-primary flex-1" id="acceptCookies">
+        Accept
+      </button>
 
-.accept {
-  background: #22c55e;
-  color: white;
-}
+      <button class="btn-secondary flex-1" id="rejectCookies">
+        Reject
+      </button>
+    </div>
 
-.reject {
-  background: #ef4444;
-  color: white;
-}
+    <!-- Link -->
+    <a
+      href="/privacy"
+      class="block mt-3 text-xs text-primary-500 hover:underline"
+    >
+      Learn more
+    </a>
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-</style>
-
-<div id="cookieBanner" class="cookie-banner">
-  <h3>🍪 نحن نستعمل الكوكيز</h3>
-  <p>
-    نستخدم ملفات تعريف الارتباط لتحسين تجربتك في الموقع وتحليل الاستخدام.
-  </p>
-
-  <div class="cookie-buttons">
-    <button class="accept">قبول</button>
-    <button class="reject">رفض</button>
   </div>
 </div>
 
 <script>
   const banner = document.getElementById("cookieBanner");
-  const acceptBtn = banner.querySelector(".accept");
-  const rejectBtn = banner.querySelector(".reject");
+  const acceptBtn = document.getElementById("acceptCookies");
+  const rejectBtn = document.getElementById("rejectCookies");
 
   const consent = localStorage.getItem("cookie-consent");
 
   if (!consent) {
-    banner.classList.add("show");
+    banner.classList.remove("hidden");
   }
 
   acceptBtn.addEventListener("click", () => {
     localStorage.setItem("cookie-consent", "accepted");
-    banner.classList.remove("show");
+    banner.classList.add("hidden");
+
+    // هنا تقدر تشغل Google Analytics مثلا
+    // loadAnalytics();
   });
 
   rejectBtn.addEventListener("click", () => {
     localStorage.setItem("cookie-consent", "rejected");
-    banner.classList.remove("show");
+    banner.classList.add("hidden");
   });
 </script>
