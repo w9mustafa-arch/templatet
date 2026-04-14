@@ -40,13 +40,16 @@
 </div>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+
   const banner = document.getElementById("cookieBanner");
   const acceptBtn = document.getElementById("acceptCookies");
   const rejectBtn = document.getElementById("rejectCookies");
 
   const consent = localStorage.getItem("cookie-consent");
 
-  if (!consent) {
+  // إظهار البانر
+  if (!consent && banner) {
     banner.classList.remove("hidden");
   }
 
@@ -54,7 +57,6 @@
     localStorage.setItem("cookie-consent", "accepted");
     banner.classList.add("hidden");
 
-    // 🔥 تحديث Google Consent Mode
     if (typeof gtag !== "undefined") {
       gtag('consent', 'update', {
         ad_storage: 'granted',
@@ -79,17 +81,21 @@
     }
   }
 
-  acceptBtn.addEventListener("click", acceptCookies);
-  rejectBtn.addEventListener("click", rejectCookies);
+  // ربط الأزرار
+  if (acceptBtn) acceptBtn.addEventListener("click", acceptCookies);
+  if (rejectBtn) rejectBtn.addEventListener("click", rejectCookies);
 
-if (consent === "accepted") {
-  if (typeof gtag !== "undefined") {
-    gtag('consent', 'update', {
-      ad_storage: 'granted',
-      analytics_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted'
-    });
+  // استرجاع الحالة
+  if (consent === "accepted") {
+    if (typeof gtag !== "undefined") {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
   }
-}
+
+});
 </script>
